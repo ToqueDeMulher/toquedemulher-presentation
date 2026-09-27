@@ -1,6 +1,17 @@
 # Toque de Mulher — apresentação
 
-Deck interativo de seis slides, com uma pessoa responsável por cada slide.
+Deck interativo de oito slides: capa, seis blocos de conteúdo (um para cada integrante) e demonstração/encerramento.
+
+## Divisão das falas
+
+1. Contexto e oportunidade
+2. Público e proposta de valor
+3. Jornada da cliente
+4. Tecnologia e arquitetura
+5. Operação e segurança
+6. MVP e próximos passos
+
+A capa e a demonstração final não entram na contagem das seis falas. As notas de cada slide podem ser abertas com `N`.
 
 ## Abrir
 

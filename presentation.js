@@ -7,12 +7,14 @@ const speakerLabel = document.querySelector('#speaker-label');
 const notesButton = document.querySelector('#notes-button');
 
 const notes = [
-  'A Toque de Mulher nasceu como uma loja física de cosméticos e cuidados pessoais. A partir dessa experiência, identificamos a oportunidade de levar a vitrine da loja para o ambiente digital. Assim, mais pessoas podem conhecer os produtos sem depender apenas do espaço físico, das redes sociais ou do WhatsApp.',
-  'O problema era a limitação de alcance e de horário da loja física. O atendimento já tinha seus clientes, mas catálogo e pedidos estavam espalhados entre diferentes canais. Com o e-commerce, a cliente pode consultar produtos e fazer seu pedido em um só lugar, enquanto a loja centraliza estoque e pagamentos.',
-  'Nosso principal público são mulheres de 18 a 45 anos interessadas em beleza, cosméticos e autocuidado. Pensamos especialmente em consumidoras que já pesquisam e compram pela internet. Para elas, é importante encontrar o produto certo sem dificuldade e concluir a compra no próprio ritmo.',
-  'Para a interface, usamos React, TypeScript e Tailwind CSS. O backend foi construído com Python e FastAPI, com PostgreSQL para organizar os dados da loja. Também usamos GitHub no versionamento, Figma na prototipação e Mercado Pago para pagamentos. Essas partes trabalham juntas para sustentar a jornada desde a vitrine até o pedido.',
-  'Já temos um MVP funcional com os principais fluxos de um e-commerce: cadastro, catálogo, carrinho, checkout, pedidos e estoque. Fizemos testes internos e de usabilidade, mas ainda não uma validação beta formal com clientes reais em produção. Agora o foco é testar em produção, colher retorno das clientes, melhorar a performance e evoluir a plataforma.',
-  'Aqui está a página inicial. A cliente pode explorar o catálogo e abrir os detalhes de um produto. Vou adicionar um item ao carrinho e seguir para o checkout e o pedido. Assim mostramos, na prática, como a compra fica centralizada na plataforma.'
+  'A Toque de Mulher nasceu como uma loja física de cosméticos e cuidados pessoais. Esta capa apresenta a transformação central do projeto: levar para o digital a proximidade e a curadoria que já existiam no atendimento presencial.',
+  'O desafio da loja física não era a falta de produtos ou de relacionamento, mas a limitação de alcance, horário e organização dos canais. Catálogo, dúvidas e pedidos podiam ficar distribuídos entre atendimento presencial, redes sociais e WhatsApp. O e-commerce cria um ponto único para a cliente comprar e para a loja administrar a operação.',
+  'Nosso público principal são mulheres de 18 a 45 anos interessadas em beleza, cosméticos, skincare e autocuidado. Elas já usam o ambiente digital para pesquisar opções e valorizam praticidade, informação clara e autonomia. A proposta é facilitar a descoberta de produtos e permitir que cada cliente compre no próprio ritmo.',
+  'A jornada começa na home, nas categorias ou na busca. A cliente pode conhecer os detalhes, guardar favoritos e montar o carrinho. Depois informa ou seleciona o endereço, calcula o frete, segue para o pagamento e acompanha seus dados e pedidos pelo perfil. Assim, a experiência deixa de depender de várias conversas separadas.',
+  'No frontend usamos React, TypeScript e Vite. A API foi construída com Python e FastAPI, e os dados ficam no PostgreSQL da Supabase. A solução se integra ao Stripe para pagamento, ao Google para login, ao Melhor Envio para frete e à BrasilAPI para apoio no preenchimento de endereços. A API concentra as regras e evita que informações sensíveis fiquem expostas na interface.',
+  'A plataforma atende tanto a cliente quanto a operação da loja. O acesso usa tokens e separa permissões de cliente e administrador. No checkout, o estoque é reservado e o pagamento é confirmado por um webhook assinado. No painel administrativo, a equipe gerencia produtos, estoque, pedidos e as etapas de envio pelo Melhor Envio.',
+  'O MVP já reúne login, catálogo, busca, favoritos, carrinho, cálculo de frete, checkout, pagamento, pedidos, estoque e painel administrativo. O próximo ciclo é concluir a publicação do conjunto, validar a experiência com clientes reais, acompanhar erros, conversão e desempenho, e priorizar melhorias a partir desses dados.',
+  'Para encerrar, vamos percorrer o fluxo principal: entrar pela home, abrir um produto, adicionar ao carrinho, calcular o frete e avançar pelo checkout até o pedido. A demonstração conecta tudo o que foi apresentado e mostra o valor da solução funcionando na prática.'
 ];
 
 let active = 0;
@@ -25,7 +27,7 @@ function goTo(index) {
   active = index;
   slides[active].hidden = false;
   slides[active].classList.add('is-active');
-  count.innerHTML = `${String(active + 1).padStart(2, '0')} <span>/ 06</span>`;
+  count.innerHTML = `${String(active + 1).padStart(2, '0')} <span>/ ${String(slides.length).padStart(2, '0')}</span>`;
   speakerLabel.textContent = slides[active].dataset.speaker;
   notesText.textContent = notes[active];
   document.querySelectorAll('.progress button').forEach((button, buttonIndex) => {
@@ -51,6 +53,7 @@ slides.forEach((slide, index) => {
   button.addEventListener('click', () => goTo(index));
   progress.append(button);
 });
+progress.style.setProperty('--slide-count', slides.length);
 
 document.querySelector('#previous-button').addEventListener('click', () => goTo(active - 1));
 document.querySelector('#next-button').addEventListener('click', () => goTo(active + 1));
